@@ -340,7 +340,6 @@ for epoch in range(1, epoch_total):
 
       for temperature in [1.2]:
           print('------ temperature:', temperature)
-          # sys.stdout.write(generated_text)
 
           for i in range(480):
               samples = generated_midi[i:]
@@ -416,4 +415,4 @@ def how_many_repetitive_func(array, from_where=0, continuation=0.0):
 
 ## Results
 
-Let's listen some outputs of the system9
+Let's listen some outputs of the system.
