@@ -1,4 +1,6 @@
-# My Music Generation Journey (Part 1)
+# My Music Generation Journey (Part 1) - Music Generation with LSTM
+
+
 
 ## INTRODUCTION
 
@@ -360,33 +362,57 @@ for epoch in range(1, epoch_total):
           midi_stream.write('midi', fp='lstm_output_v1_{}_{}.mid'.format(epoch, temperature))
 ``` 
 
-We need *matrix_to_midi* function for upper script. Now, let's build it!
+DL models create matrix as output. We need convert this matrix to midi for listening. Now, let's build *matrix_to_midi_ function for this conversion.
 
-- First read the matrix. (I have provide small part of codes. Because codes are too long to read in blogpost)
+- First read the matrix. (I have provide small part of codes. Because codes are too long to read in blogpost) 
 
 ``` python
 for y_axis_num in range(y_axis):
         one_freq_interval = matrix[y_axis_num,:] # values in one column
-        one_freq_interval_norm = converter_func(one_freq_interval)
-        # print (one_freq_interval)
+        one_freq_interval_norm = converter_func(one_freq_interval) # normalize values
         i = 0        
         offset = 0
-        while (i < len(one_freq_interval)):
-            how_many_repetitive = 0
-            temp_i = i
-            if (one_freq_interval_norm[i] == first_touch):
-                how_many_repetitive = how_many_repetitive_func(one_freq_interval_norm, from_where=i+1, continuation=continuation)
-                i += how_many_repetitive 
-            if (how_many_repetitive > 0):
-                new_note = note.Note(int_to_note(y_axis_num),duration=duration.Duration(0.25*how_many_repetitive))
-                new_note.offset = 0.25*temp_i
-                new_note.storedInstrument = instrument.Piano()
-                output_notes.append(new_note)
-            else:
-                i += 1
+
+        if (random):
+          
+          while (i < len(one_freq_interval)):
+              how_many_repetitive = 0
+              temp_i = i
+
+              if (one_freq_interval_norm[i] == first_touch):
+                  how_many_repetitive = how_many_repetitive_func(one_freq_interval_norm, from_where=i+1, continuation=continuation)
+                  i += how_many_repetitive 
+
+              if (how_many_repetitive > 0):
+                  random_num = np.random.randint(1,6)
+                  new_note = note.Note(int_to_note(y_axis_num),duration=duration.Duration(0.25*random_num*how_many_repetitive))
+                  new_note.offset = 0.25*temp_i*2
+                  new_note.storedInstrument = instrument.Piano()
+                  output_notes.append(new_note)
+              else:
+                  i += 1
+          
+        else:
+          
+          while (i < len(one_freq_interval)):
+              how_many_repetitive = 0
+              temp_i = i
+              if (one_freq_interval_norm[i] == first_touch):
+                  how_many_repetitive = how_many_repetitive_func(one_freq_interval_norm, from_where=i+1, continuation=continuation)
+                  i += how_many_repetitive 
+
+              if (how_many_repetitive > 0):
+                  new_note = note.Note(int_to_note(y_axis_num),duration=duration.Duration(0.25*how_many_repetitive))
+                  new_note.offset = 0.25*temp_i
+                  new_note.storedInstrument = instrument.Piano()
+                  output_notes.append(new_note)
+              else:
+                  i += 1
         
     return output_notes
 ```
+
+Note: I have added some randomness to this conversion. If I do not use this randomness, length of notes is mostly _0.25_ because of model. Thus, generated music can not be enjoyable without this randomness.
 
 As you can see, there is some function in this code. Now, look these functions.
 
