@@ -4,11 +4,12 @@
 
 ## INTRODUCTION
 
-Neural networks are widely used in different areas such as cancer detection, autonomous cars, recommendation systems. With the [_Andraj Karpathy_'s post](http://karpathy.github.io/2015/05/21/rnn-effectiveness/) which is about RNN, generative Deep Learning (DL) become popular among different areas. With this post, researcher mostly focus _text generation_ for fun. However as you can see in the comments, some researcher give idea about music generation with Deep Learning.[]() Also, we can see great idea in this area like [Google's Magenta](https://magenta.tensorflow.org) and [Aiva](http://www.aiva.ai) which is Luxembourg based startup for music generation. Especially, Aiva's musics are amazing and their contents are registered under the France and Luxembourg authors’ right society (SACEM).
+Neural networks are widely used in different areas such as cancer detection, autonomous cars, recommendation systems. With the [_Andraj Karpathy_'s post](http://karpathy.github.io/2015/05/21/rnn-effectiveness/) which is about RNN, generative Deep Learning (DL) become popular among different areas. With this post, researcher mostly focus _text generation_ for fun. However as you can see in the comments, some researcher give idea about music generation with Deep Learning.
+![alt text](https://docs.google.com/uc?id=17ac9nbnkO9n4NoiJ5iDAs26iEpkdrBfL)
+
+Also, we can see great idea in this area like [Google's Magenta](https://magenta.tensorflow.org) and [Aiva](http://www.aiva.ai) which is Luxembourg based startup for music generation. Especially, Aiva's musics are amazing and their contents are registered under the France and Luxembourg authors’ right society (SACEM).
 
  With this impression, I want to start my own journey to this area. And this blog-post explains my first step to this journey.
-
- 
 
 
 ## LSTM
@@ -17,7 +18,10 @@ Neural networks are widely used in different areas such as cancer detection, aut
 
 Traditional neural networks can not remember past information. They can only process current information. As you can think, if you can not remember past information, probably you can not even make meaningful sentences. Recurrent Neural Network(RNN) solve this problem with recurrent connection via loops at nodes. However, Vanilla RNN has another problem called as _vanishing gradient_. At this point, you can ask what is gradient and why this problem is big deal. Let me explain these concepts in one paragraph.
 
-Gradient is fancy words for slope of line a.k.a derivative. You can find the minimum or maximum point of the lines thanks to gradient. As you expect, ıts usage for Deep Learning comes with the loss function. Our aim is minimize the loss function for DL models. So that, when you want to find the point for the mimimum loss, you have to use gradient. Gradient based methods learn a parameter's value (weights of node or biases) by understanding how a small change in this parameter's value will affect the outputs of the network. When vanishing gradient problem occurs, gradient of early layers of the model's parameters' become very small. Thus, DL model can not find the better value for parameter effectively to decrease loss function with find the minimum point of line thanks to gradient.
+![alt text](https://deeplearning4j.org/img/greff_lstm_diagram.png)
+For more information: https://arxiv.org/abs/1503.04069
+
+Gradient is fancy words for slope of line a.k.a derivative. You can find the minimum points of the function thanks to gradient descent. I love this quote: _The gradient will act like a compass and always point us downhill. To compute it, we will need to differentiate our error function._ We can say that, gradient descent is a way to minimize objective function. (Gradient descent is an optimization algorithm that minimizes functions.) This optimization technique is based on repetition. For the initialization, model guess some parameter and according to gradient (derivative) of objective function, model updates their parameter. As you expect, its usage for Deep Learning comes with the loss(cost) function. Most of the time, our aim is minimize the loss(cost) function for DL models. Gradient based methods learn a parameter's value (weights of node or biases) by understanding how a small change in this parameter's value will affect the outputs of the network. When vanishing gradient problem occurs, gradient of early layers of the model's parameters' become very small. Thus, DL model can not find the better value for parameter effectively to decrease loss function with find the minimum point of line thanks to gradient.
 
 
 
@@ -39,7 +43,7 @@ When you want to feed your deep learning model, you need input as matrix format.
 - Convert these informations to matrix.
 
 
-NOTE: You can find full code in [my _GitHub_ repository](https://github.com/hedonistrh/bestekar). I will provide snippets from code for better understanding.
+NOTE: You can find full code in [my _GitHub_ repository](https://github.com/hedonistrh/bestekar). I will provide snippets from code for better understanding in this post.
 
 **Let's Start!**
 
@@ -111,7 +115,7 @@ def note_to_int(note): # converts the note's letter to pitch value which is inte
         octave = note[3]
         value = base_value + 12*(int(octave)-(-1))
         
-    elif ('#' in note): # not totally sure, source: 
+    elif ('#' in note): 
         first_letter = note[0]
         base_value = note_base_name.index(first_letter)
         octave = note[2]
@@ -427,6 +431,7 @@ def converter_func(arr,first_touch = 1.0, continuation = 0.0, lower_bound = lowe
     return arr
 ```
 - *how_many_repetitive_func* is used to understand duration of note. 
+
 ```python
 def how_many_repetitive_func(array, from_where=0, continuation=0.0):
     new_array = array[from_where:]
