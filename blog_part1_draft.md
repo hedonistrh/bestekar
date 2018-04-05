@@ -4,7 +4,7 @@
 
 ## INTRODUCTION
 
-Neural networks are widely used in different areas such as cancer detection, autonomous cars, recommendation systems. With the [_Andraj Karpathy_'s post](http://karpathy.github.io/2015/05/21/rnn-effectiveness/) which is about RNN, generative Deep Learning (DL) become popular among different areas. With this post, researcher mostly focus _text generation_ for fun. However as you can see in the comments, some researcher give idea about music generation with Deep Learning.
+Neural networks are widely used in different areas such as cancer detection, autonomous cars, recommendation systems. With the [_Andraj Karpathy_'s post](http://karpathy.github.io/2015/05/21/rnn-effectiveness/) which is about RNN, generative Deep Learning (DL) become popular among different areas. With this post, researcher mostly focus to _text generation_ for fun. However as you can see in the comments, some researcher give idea about music generation with Deep Learning.
 ![alt text](https://docs.google.com/uc?id=17ac9nbnkO9n4NoiJ5iDAs26iEpkdrBfL)
 
 Also, we can see great idea in this area like [Google's Magenta](https://magenta.tensorflow.org) and [Aiva](http://www.aiva.ai) which is Luxembourg based startup for music generation. Especially, Aiva's musics are amazing and their contents are registered under the France and Luxembourg authors’ right society (SACEM).
