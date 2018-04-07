@@ -35,6 +35,13 @@ This type of files do not include actual audio as opposed to _.mp3_ and _.wav_. 
 
 I have used _Keras_ as Deep Learning framework with _Tensorflow_ backend. Because, it is easier than pure _Tensorflow API_ for me.
 
+## Music21
+
+[_Music21_](http://web.mit.edu/music21/doc/) is Python-based toolkit for computer-aided musicology.
+
+People use music21 to answer questions from musicology using computers, to study large datasets of music, to generate musical examples, to teach fundamentals of music theory, to edit musical notation, study music and the brain, and to compose music (both algorithmically and directly).
+
+I have used _music21_ toolkit to read _.mid_ file and extract informations as notes, durations and offsets. Also, I have created matrix from these informations via this toolkit. Furthermore, I have used this toolkit to create new _.mid_ file from generated matrix.
 
 ## Code Part
 
