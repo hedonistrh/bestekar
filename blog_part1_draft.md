@@ -33,7 +33,7 @@ This type of files do not include actual audio as opposed to _.mp3_ and _.wav_. 
 
 ## Framework
 
-I have used _Keras_ as Deep Learning framework with _Tensorflow_ backend. Because, it is easier than pure _Tensorflow API_ for me.
+I have used [_Keras_](https://keras.io) as a Deep Learning framework with [_Tensorflow_](https://www.tensorflow.org) backend. Because, it is easier than pure _Tensorflow API_ for me.
 
 ## Music21
 
@@ -192,6 +192,8 @@ Create matrix to represent midi file with using information which comes from pre
 
 Now, we can create dataset from _.mid_ file with this functions. For the this post, I have used great composer Schumann _.mid_ files. Firstly, I have convert all midi file to matrix one by one and append single midi's matrix to list of cumulative matrix. After that, I have convert list to numpy array and save this array which includes Schumann's _.mid_ to _.npy_ file to use easily with another platform and later use.
 
+### Build Database
+
 ``` python
 # Build database
 
@@ -220,7 +222,7 @@ else:
     midis_array = np.asarray(matrix_of_all_midis)
     np.save(my_file_database_npy, midis_array)
 ```
-
+### Transform Database
 When you load _.npy_ file to numpy array, your array's shape will be (# of file, # of freq, # of time in a single file). You can not use this type of array directly. So that, we have to modify this data to use with _LSTM._ 
 
 - Firstly, I will convert to (# of file, # of time in a single file, # of freq)
@@ -256,6 +258,8 @@ for i in range (0, midis_array.shape[0]-max_len, step):
 ```
 
 Now we can build our deep learning model with _KERAS_ Api. I have used 3 LSTM layer and 2 Dense Layer. Also, model's final activation function is _softmax_ because we want to output which is between 0 and 1. Also, I have used _LeakyReLU_ and _Dropout_ layers to get rid of gradient problem.
+
+### Build our Deep Learning Architecture
 
 ```python
 # Build our Deep Learning Architecture
@@ -302,10 +306,16 @@ We should compile this model. So that, we need tune two things.
 
 I have used Stochastic Gradient Descent (SGD) for optimizer and _categorical cross entropy_ for loss function.
 
+- Basically, in SGD, we are using the cost gradient of 1 example at each iteration, instead of using the sum of the cost gradient of ALL examples. (We update the weights after each training sample in SGD.)
+- We use _categorical cross entropy_ for multi-class problem. Also, we use this type of loss function when we use _softmax_ and _one-hot encoded target_.
+
+
+
 ``` python
 optimizer = keras.optimizers.SGD(lr=0.01)
 model.compile(loss='categorical_crossentropy', optimizer=optimizer)
 ```
+### Training and Generation
 
 Now, when we feed our deep learning model with training data, it predict same values. We use these values to sample. This part is a litte bit confusing. I have tried different methods. For instance, assume argument of max value as first touch and second max argument as continuation, however, it can not creates enjoyable music. So that, I have used this function.
 
@@ -329,7 +339,7 @@ def sample_v2(preds, temperature=1.0):
     return array
 ```
 
-Now we can train our system and generate array for converting to midi.
+Now we can train our model. When our model is trained, we can create matrix. After that we can generate _.mid_ with this matrix.
 
 ``` python
 import random
