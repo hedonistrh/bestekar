@@ -306,7 +306,7 @@ model = Model(input_midi, x)
 
 We have used _LSTM, LeakyReLU, BatchNormalization, Dropout and Dense_ layers. Let's look closely each one.
 
-- LSTM layer is recurrent layer. You can find the more information about LSTM in previous paragraph.
+- LSTM layer is recurrent layer. You can find the more information about LSTM in previous paragraph. (We use *return_sequences=True* for stacked LSTM)
 
 - LeakyReLU is activation function. It is attempt to fix the “dying ReLU” problem. 
 
@@ -331,7 +331,15 @@ We should compile this model. So that, we need tune two things.
 I have used Stochastic Gradient Descent (SGD) for optimizer and _categorical cross entropy_ for loss function.
 
 - Basically, in SGD, we are using the cost gradient of 1 example at each iteration, instead of using the sum of the cost gradient of ALL examples. (We update the weights after each training sample in SGD.)
-- We use _categorical cross entropy_ for multi-class problem. Also, we use this type of loss function when we use _softmax_ and _one-hot encoded target_.
+
+ 
+- In this example, we use _categorical cross entropy_ for multi-class problem. Also, we use this type of loss function when we use _softmax_ and _one-hot encoded target_. 
+
+    - We use cross-entropy to understand how predicted distribution differs from true distribution in real life applications with this formula.
+
+        ![alttext](https://wikimedia.org/api/rest_v1/media/math/render/svg/0cb6da032ab424eefdca0884cd4113fe578f4293)
+
+        - As you can expect, if cross-entropy (loss) decrease with updates of weights and biases, we can say predicted distribution better represent the true distribution. Thus, gradient based updates' aim is decrease cross-entropy.
 
 
 
@@ -407,7 +415,7 @@ for epoch in range(1, epoch_total):
           midi_stream.write('midi', fp='lstm_output_v1_{}_{}.mid'.format(epoch, temperature))
 ``` 
 
-DL models create matrix as output. We need convert this matrix to midi for listening. Now, let's build *matrix_to_midi_ function for this conversion.
+DL models create matrix as output. We need convert this matrix to midi for listening. Now, let's build *matrix_to_midi* function for this conversion.
 
 - First read the matrix. (I have provide small part of codes. Because codes are too long to read in blogpost) 
 
@@ -457,7 +465,7 @@ for y_axis_num in range(y_axis):
     return output_notes
 ```
 
-Note: I have added some randomness to this conversion. If I do not use this randomness, length of notes is mostly _0.25_ because of model. Thus, generated music can not be enjoyable without this randomness.
+Note: I have added some randomness to this conversion. If I do not use this randomness, length of notes will mostly become _0.25_ because of model. Thus, generated music can not be enjoyable without this randomness.
 
 As you can see, there is some function in this code. Now, look these functions.
 
