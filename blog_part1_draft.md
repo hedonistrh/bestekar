@@ -304,7 +304,27 @@ x = layers.Dense(128, activation='softmax')(x) # Maybe, we can use sigmoid.
 model = Model(input_midi, x)
 ```
 
+We have used _LSTM, LeakyReLU, BatchNormalization, Dropout and Dense_ layers. Let's look closely each one.
+
+- LSTM layer is recurrent layer. You can find the more information about LSTM in previous paragraph.
+
+- LeakyReLU is activation function. It is attempt to fix the “dying ReLU” problem. 
+
+> In ReLU, if the input is not more than zero, weights can not change. So that, neurons become dead. With LeakyReLU, even if input is not more than zero, model can update weights. Thus, it become alive.
+
+![alt text](https://cdn-images-1.medium.com/max/1600/1*DRKBmIlr7JowhSbqL6wngg.png) 
+
+- Batch Normalization means that normalize each batch by both mean and variance. ([More information](https://gab41.lab41.org/batch-normalization-what-the-hey-d480039a9e3b))
+
+- Dropout is a regularization technique. The key idea is to randomly drop units (along with their connections) from the neural network during training. This prevents units from co-adapting too much. This significantly reduces overfitting and gives major improvements over other regularization methods. ([More information](http://jmlr.org/papers/v15/srivastava14a.html))
+
+**We are using _LeakyReLU, BatchNormalization and Dropout_ for better generalization.**
+
+- Dense (Fully-Connected) layer implements the operation: 
+     > _output = activation(dot(input, kernel) + bias)_
+
 We should compile this model. So that, we need tune two things.
+
 - Optimizer
 - Loss Function
 
@@ -467,4 +487,4 @@ def how_many_repetitive_func(array, from_where=0, continuation=0.0):
 
 ## Results
 
-Let's listen some outputs of the system.
+Let's listen some outputs of the system. :notes:
