@@ -193,10 +193,9 @@ Create matrix to represent midi file with using information which comes from pre
                 
     ```
 
+### Build Database
 
 Now, we can create dataset from _.mid_ file with this functions. For the this post, I have used great composer Schumann _.mid_ files. Firstly, I have convert all midi file to matrix one by one and append single midi's matrix to list of cumulative matrix. After that, I have convert list to numpy array and save this array which includes Schumann's _.mid_ to _.npy_ file to use easily with another platform and later use.
-
-### Build Database
 
 ``` python
 # Build database
