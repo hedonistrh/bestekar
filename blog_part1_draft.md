@@ -4,10 +4,10 @@
 
 ## INTRODUCTION
 
-Neural networks are widely used in different areas such as cancer detection, autonomous cars, recommendation systems. With the [_Andrej Karpathy_'s post](http://karpathy.github.io/2015/05/21/rnn-effectiveness/) which is about RNN, generative Deep Learning (DL) become popular among different areas. With this post, researcher mostly focus to _text generation_ for fun. However as you can see in the comments, some researcher give idea about music generation with Deep Learning.
+Neural networks are widely used in different areas such as cancer detection, autonomous cars, recommendation systems. With the [_Andrej Karpathy_'s post](http://karpathy.github.io/2015/05/21/rnn-effectiveness/) which is about RNN, generative Deep Learning (DL) become popular among different areas. With this post, researcher mostly start to focus to _text generation_ for fun. However as you can see in the comments, some researcher give idea about _music generation_ with Deep Learning.
 ![alt text](https://docs.google.com/uc?id=17ac9nbnkO9n4NoiJ5iDAs26iEpkdrBfL)
 
-Also, we can see great idea in this area like [Google's Magenta](https://magenta.tensorflow.org) and [Aiva](http://www.aiva.ai) which is Luxembourg based startup for music generation. Especially, Aiva's musics are amazing and their contents are registered under the France and Luxembourg authors’ right society (SACEM).
+Also, we can see great idea in this area like [Google's Magenta](https://magenta.tensorflow.org) and [Aiva](http://www.aiva.ai) which is Luxembourg based startup for music generation. Especially, [Aiva's musics](https://www.youtube.com/watch?v=HAfLCTRuh7U) are amazing and their contents are registered under the France and Luxembourg authors’ right society (SACEM).
 
  With this impression, I want to start my own journey to this area. And this blog-post explains my first step to this journey.
 
@@ -21,19 +21,19 @@ Traditional neural networks can not remember past information. They can only pro
 ![alt text](https://deeplearning4j.org/img/greff_lstm_diagram.png)
 For more information: https://arxiv.org/abs/1503.04069
 
-Gradient is fancy words for slope of line a.k.a derivative. You can find the minimum points of the function thanks to gradient descent. I love this quote: _The gradient will act like a compass and always point us downhill. To compute it, we will need to differentiate our error function._ We can say that, gradient descent is a way to minimize objective function. (Gradient descent is an optimization algorithm that minimizes functions.) This optimization technique is based on repetition. For the initialization, model guess some parameter and according to gradient (derivative) of objective function, model updates their parameter. As you expect, its usage for Deep Learning comes with the loss(cost) function. Most of the time, our aim is minimize the loss(cost) function for DL models. Gradient based methods learn a parameter's value (weights of node or biases) by understanding how a small change in this parameter's value will affect the outputs of the network. When vanishing gradient problem occurs, gradient of early layers of the model's parameters' become very small. Thus, DL model can not find the better value for parameter effectively to decrease loss function with find the minimum point of line thanks to gradient.
+Gradient is a fancy words for slope of line(_for 2D space_) a.k.a derivative. We use gradient to find minimum points of the function. I think this quote will give intuitive explanation: _The gradient will act like a compass and always point us downhill. To compute it, we will need to differentiate our error function._ We can say that, gradient descent is a way to minimize objective function. (Gradient descent is an optimization algorithm that minimizes functions.) This optimization technique is based on repetition. For the initialization, model guess some parameter and according to gradient (derivative) of objective function, model updates their parameter. As you expect, its usage for Deep Learning comes with the loss(cost) function. Most of the time, our aim is minimize the loss(cost) function for DL models. Gradient based methods learn a parameter's value (weights of node or biases) by understanding how a small change in this parameter's value will affect the outputs of the network. When vanishing gradient problem occurs, gradient of early layers of the model's parameters' become very small. Thus, DL model can not find the better value for parameter effectively to decrease loss function with find the minimum point of line thanks to gradient.
 
 
 
 ## _.mid_ Files
 
-_.mid_ files include _midi_ datas. _Midi_ means that _Musical Instrument Digital Interface_. 
+_.mid_ files include _midi_ datas. _Midi_ is an abbreviation for _Musical Instrument Digital Interface_. 
 
 This type of files do not include actual audio as opposed to _.mp3_ and _.wav_.  _.mid_ files explain what notes are played and how long or loud each note should be. 
 
 ![alt text](https://docs.google.com/uc?id=1mM1hT6rDpo_F0YEG3BPlVKJxHqPJKKYo)
 
-However, we are using just piano part of _.mid_ files for this post. 
+_.mid_ files can include different instruments such as _flute, _obua,muted bass_. However, we are using just piano part of _.mid_ files for this post. 
 
 ## Framework
 
@@ -41,9 +41,9 @@ I have used [_Keras_](https://keras.io) as a Deep Learning framework with [_Tens
 
 ## Music21
 
-[_Music21_](http://web.mit.edu/music21/doc/) is Python-based toolkit for computer-aided musicology.
+[_Music21_](http://web.mit.edu/music21/doc/) is Python-based toolkit for computer-aided musicology. It is developed by [_MIT researchers and community._](https://github.com/cuthbertLab/music21) 
 
-People use music21 to answer questions from musicology using computers, to study large datasets of music, to generate musical examples, to teach fundamentals of music theory, to edit musical notation, study music and the brain, and to compose music (both algorithmically and directly).
+People use _music21_ to answer questions from musicology using computers, to study large datasets of music, to generate musical examples, to teach fundamentals of music theory, to edit musical notation, study music and the brain, and to compose music (both algorithmically and directly).
 
 I have used _music21_ toolkit to read _.mid_ file and extract informations as notes, durations and offsets. Also, I have created matrix from these informations via this toolkit. Furthermore, I have used this toolkit to create new _.mid_ file from generated matrix.
 
