@@ -270,6 +270,8 @@ for i in range (0, midis_array.shape[0]-max_len, step):
     predicted_full.append(pred)
 ```
 
+![alt text](https://docs.google.com/uc?id=1HU9ndoIaIdL6cRsmGaL8yCMQ_PqqkOsv)
+
 Now we can build our deep learning model with _KERAS_ Api. I have used 3 LSTM layer and 2 Dense Layer. Also, model's final activation function is _softmax_ because we want to output which is between 0 and 1. Also, I have used _LeakyReLU_ and _Dropout_ layers to get rid of gradient problem.
 
 ### Build our Deep Learning Architecture
