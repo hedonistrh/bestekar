@@ -199,7 +199,11 @@ Create matrix to represent midi file with using information which comes from pre
 
 ### Build Database
 
-Now, we can create dataset from _.mid_ file with this functions. For the this post, I have used great composer Schumann _.mid_ files. Firstly, I have convert all midi file to matrix one by one and append single midi's matrix to list of cumulative matrix. After that, I have convert list to numpy array and save this array which includes Schumann's _.mid_ to _.npy_ file to use easily with another platform and later use.
+Now, we can create dataset from _.mid_ file with these functions. For this post, I have used great composer Schumann _.mid_ files. 
+
+Firstly, I have convert all midi file to matrix one by one and append single midi's matrix to list of cumulative matrix. However, this matrix is instance of _list_ format and we can not use this format for array manipulation. So that, I have convert the list to numpy array and save this array which includes Schumann's _.mid_ to _.npy_ file to use easily with another platform and later use.
+
+Note: You can use a zip file which includes your inputs as _.mid_ format. The code will extract zip and create _numpy array_ and _.npy_ file. You can find commented version of this code block in my github repo. I will not share it in this post.
 
 ``` python
 # Build database
@@ -229,7 +233,9 @@ else:
     midis_array = np.asarray(matrix_of_all_midis)
     np.save(my_file_database_npy, midis_array)
 ```
+
 ### Transform Database
+
 When you load _.npy_ file to numpy array, your array's shape will be (# of file, # of freq, # of time in a single file). You can not use this type of array directly. So that, we have to modify this data to use with _LSTM._ 
 
 - Firstly, I will convert to (# of file, # of time in a single file, # of freq)
