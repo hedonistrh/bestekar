@@ -14,7 +14,7 @@ Also, we can see great idea in this area like [Google's Magenta](https://magenta
 
 ## LSTM
 
-[Colah's post](https://colah.github.io/posts/2015-08-Understanding-LSTMs/) gives great insight about LSTM. Also, I will try to give information about LSTM.
+[Colah's post](https://colah.github.io/posts/2015-08-Understanding-LSTMs/) gives great insight about LSTM. Also, I will try to give information about LSTM. 
 
 Traditional neural networks can not remember past information. They can only process current information. As you can think, if you can not remember past information, probably you can not even make meaningful sentences. Recurrent Neural Network(RNN) solve this problem with recurrent connection via loops at nodes. However, Vanilla RNN has another problem called as _vanishing gradient_. At this point, you can ask what is gradient and why this problem is big deal. Let me explain these concepts in one paragraph.
 
@@ -164,7 +164,11 @@ Create matrix to represent midi file with using information which comes from pre
     total_offset_axis = last_offset * 4 + (8 * 4) 
     our_matrix = np.random.uniform(min_value, lower_first, (128, int(total_offset_axis))) 
     ```
-- Read lists and extract information to modify matrix to represent midi. I have spent too much time to determine how distunguish between a long note and many short notes. According to my trials, best method is represent a long note with bigger value at first occurence's offset, smaller value at continuation's offset. For instance, **C4** with duration _0.75_ will be represented as _1.0-0.5-0.5_, three _0.25_ **C4** will be represented as _1.0-1.0-1.0_. However, for better generalization, we can add some randomness to these values. But, in this codes, I have not done that. (If you want to this, for instance you can change lower_first to 0.1, lower_second to 0.4, upper_first to 0.6, upper_second to 0.8)
+- Read lists and extract information to modify matrix to represent midi. I have spent too much time to determine how distunguish between a long note and many short notes. According to my trials, best method is represent a long note with bigger value at first occurence's offset, smaller value at continuation's offset. For instance, **C4** with duration _0.75_ will be represented as _1.0-0.5-0.5_, three _0.25_ **C4** will be represented as _1.0-1.0-1.0_. 
+
+    ![alt text](https://docs.google.com/uc?id=1l56Yz0N3KWXHCgwi2eV7rhmva80xF7fV)
+
+- However, for better generalization, we can add some randomness to these values. But, in this codes, I have not done that. (If you want to this, for instance you can change lower_first to 0.1, lower_second to 0.4, upper_first to 0.6, upper_second to 0.8)
 
     ```python
     for (note, duration, offset) in zip(notes, durations, offsets):
