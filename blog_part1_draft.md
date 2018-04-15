@@ -18,10 +18,14 @@ Also, we can see great idea in this area like [Google's Magenta](https://magenta
 
 Traditional neural networks can not remember past information. They can only process current information. As you can think, if you can not remember past information, probably you can not even make meaningful sentences. Recurrent Neural Network(RNN) solve this problem with recurrent connection via loops at nodes. However, Vanilla RNN has another problem called as _vanishing gradient_. At this point, you can ask what is gradient and why this problem is big deal. Let me explain these concepts in one paragraph.
 
-![alt text](https://deeplearning4j.org/img/greff_lstm_diagram.png)
-For more information: https://arxiv.org/abs/1503.04069
+<p align="center">
+    <img src="https://deeplearning4j.org/img/greff_lstm_diagram.png">
+    <a href="https://arxiv.org/abs/1503.04069">Source</a>
+</p>
 
 Gradient is a fancy words for slope of line(_for 2D space_) a.k.a derivative. We use gradient to find minimum points of the function. I think this quote will give intuitive explanation: _The gradient will act like a compass and always point us downhill. To compute it, we will need to differentiate our error function._ We can say that, gradient descent is a way to minimize objective function. (Gradient descent is an optimization algorithm that minimizes functions.) This optimization technique is based on repetition. For the initialization, model guess some parameter and according to gradient (derivative) of objective function, model updates their parameter. As you expect, its usage for Deep Learning comes with the loss(cost) function. Most of the time, our aim is minimize the loss(cost) function for DL models. Gradient based methods learn a parameter's value (weights of node or biases) by understanding how a small change in this parameter's value will affect the outputs of the network. When vanishing gradient problem occurs, gradient of early layers of the model's parameters' become very small. Thus, DL model can not find the better value for parameter effectively to decrease loss function with find the minimum point of line thanks to gradient.
+
+- _You can check this excellent resource for mathematical and graphical explanation of gradient descent:_ http://fa.bianp.net/teaching/2018/eecs227at/gradient_descent.html
 
 
 
@@ -323,7 +327,10 @@ We have used _LSTM, LeakyReLU, BatchNormalization, Dropout and Dense_ layers. Le
 
 > In ReLU, if the input is not more than zero, weights can not change. So that, neurons become dead. With LeakyReLU, even if input is not more than zero, model can update weights. Thus, it become alive.
 
-![alt text](https://cdn-images-1.medium.com/max/1600/1*DRKBmIlr7JowhSbqL6wngg.png) 
+<p align="center">
+    <img src="https://cdn-images-1.medium.com/max/1600/1*DRKBmIlr7JowhSbqL6wngg.png">
+    <a href="http://cs231n.stanford.edu/slides/2017/cs231n_2017_lecture6.pdf">Source</a>
+</p>
 
 - Batch Normalization means that normalize each batch by both mean and variance. ([More information](https://gab41.lab41.org/batch-normalization-what-the-hey-d480039a9e3b))
 
