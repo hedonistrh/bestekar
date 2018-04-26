@@ -290,31 +290,62 @@ from keras.models import Model
 import tensorflow as tf
 from keras.layers.advanced_activations import *
 
+
 midi_shape = (max_len, 128)
 
 input_midi = keras.Input(midi_shape)
 
-x = layers.LSTM(512, return_sequences=True)(input_midi)
+x = layers.LSTM(1024, return_sequences=True, unit_forget_bias=True)(input_midi)
 x = layers.LeakyReLU()(x)
 x = layers.BatchNormalization() (x)
-x = layers.Dropout(0.4)(x)
+x = layers.Dropout(0.3)(x)
 
-x = layers.LSTM(512, return_sequences=True)(input_midi)
+# compute importance for each step
+attention = layers.Dense(1, activation='tanh')(x)
+attention = layers.Flatten()(attention)
+attention = layers.Activation('softmax')(attention)
+attention = layers.RepeatVector(1024)(attention)
+attention = layers.Permute([2, 1])(attention)
+
+multiplied = layers.Multiply()([x, attention])
+sent_representation = layers.Dense(512)(multiplied)
+
+
+x = layers.Dense(512)(sent_representation)
 x = layers.LeakyReLU()(x)
-# x = layers.BatchNormalization() (x)
-x = layers.Dropout(0.4)(x)
+x = layers.BatchNormalization() (x)
+x = layers.Dropout(0.22)(x)
 
-x = layers.Dense(256)(x)
+x = layers.LSTM(512, return_sequences=True, unit_forget_bias=True)(x)
 x = layers.LeakyReLU()(x)
-# x = layers.BatchNormalization() (x)
-x = layers.Dropout(0.4)(x)
+x = layers.BatchNormalization() (x)
+x = layers.Dropout(0.22)(x)
 
-x = layers.LSTM(128)(x)
+
+# compute importance for each step
+attention = layers.Dense(1, activation='tanh')(x)
+attention = layers.Flatten()(attention)
+attention = layers.Activation('softmax')(attention)
+attention = layers.RepeatVector(512)(attention)
+attention = layers.Permute([2, 1])(attention)
+
+multiplied = layers.Multiply()([x, attention])
+sent_representation = layers.Dense(256)(multiplied)
+
+
+x = layers.Dense(256)(sent_representation)
 x = layers.LeakyReLU()(x)
-# x = layers.BatchNormalization() (x)
-x = layers.Dropout(0.4)(x)
+x = layers.BatchNormalization() (x)
+x = layers.Dropout(0.22)(x)
 
-x = layers.Dense(128, activation='softmax')(x) # Maybe, we can use sigmoid.
+
+x = layers.LSTM(128, unit_forget_bias=True)(x)
+x = layers.LeakyReLU()(x)
+x = layers.BatchNormalization() (x)
+x = layers.Dropout(0.22)(x)
+
+
+x = layers.Dense(128, activation='softmax')(x) 
 
 model = Model(input_midi, x)
 ```
