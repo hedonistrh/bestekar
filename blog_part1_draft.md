@@ -407,16 +407,21 @@ def sample(preds, temperature=1.0):
     exp_preds = np.exp(preds)
     preds = exp_preds / np.sum(exp_preds)
     
-    num_of_top = 10
+    num_of_top = 15
     num_of_first = np.random.randint(1,3)
 
+    
+    preds [0:48] = 0 # eliminate notes with low octaves
+    preds [100:] = 0 # eliminate notes with very high octaves
+    
     ind = np.argpartition(preds, -1*num_of_top)[-1*num_of_top:]
     top_indices_sorted = ind[np.argsort(preds[ind])]
     
+    
     array = np.random.uniform(0.0, 0.0, (128)) 
     array[top_indices_sorted[0:num_of_first]] = 1.0
-    array[top_indices_sorted[num_of_first:num_of_first+4]] = 0.5
-    
+    array[top_indices_sorted[num_of_first:num_of_first+3]] = 0.5
+
     return array
 ```
 
