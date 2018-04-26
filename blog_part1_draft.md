@@ -1,4 +1,4 @@
-# My Music Generation Journey (Part 1) - Music Generation with LSTM
+# My Music with Deep Learning Journey (Part 1) - Music Generation with LSTM 
 
 
 
@@ -9,14 +9,14 @@ Neural networks are widely used in different areas such as cancer detection, aut
 
 Also, we can see great efforts in this area like [Google's Magenta](https://magenta.tensorflow.org) and [Aiva](http://www.aiva.ai) which is Luxembourg based startup for music generation. Especially, [Aiva's musics](https://www.youtube.com/watch?v=HAfLCTRuh7U) are amazing and their contents are registered under the France and Luxembourg authors’ right society (SACEM).
 
- With this impression, I want to start my own journey to this area. And this blog-post explains my first step to this journey.
+ With this impression, I want to start my own journey to this area. And this blog-post explains my first step to this journey. :school_satchel: :tada:
 
 
 ## LSTM
 
 [Colah's post](https://colah.github.io/posts/2015-08-Understanding-LSTMs/) gives great insight about LSTM. Also, I will try to give information about LSTM. 
 
-Traditional neural networks can not remember past information. They can only process current information. As you can think, if you can not remember past information, probably you can not even make meaningful sentences. Recurrent Neural Network(RNN) solve this problem with recurrent connection via loops at nodes. However, Vanilla RNN has another problem called as _vanishing gradient_. At this point, you can ask what is gradient and why this problem is big deal. Let me explain these concepts in one paragraph.
+Traditional neural networks can not remember past information. They can only process current information. As you can think, if you can not remember past information, probably you can not even produce meaningful sentences. Recurrent Neural Network(RNN) solve this problem thanks to recurrent connection via loops at nodes. However, Vanilla RNN has another problem called as _vanishing gradient_. At this point, you can ask what is gradient and why this problem is big deal. Let me explain these concepts in one paragraph.
 
 <p align="center">
     <img src="https://deeplearning4j.org/img/greff_lstm_diagram.png">
@@ -370,7 +370,7 @@ model.compile(loss='categorical_crossentropy', optimizer=optimizer)
 Now, when we feed our deep learning model with training data, it predict same values. We use these values to sample. This part is a litte bit confusing. I have tried different methods. For instance, assume argument of max value as first touch and second max argument as continuation, however, it can not creates enjoyable music. So that, I have used this function.
 
 ``` python
-def sample_v2(preds, temperature=1.0):
+def sample(preds, temperature=1.0):
     preds = np.asarray(preds).astype('float64')
     preds = np.log(preds) / temperature
     exp_preds = np.exp(preds)
@@ -420,7 +420,7 @@ for epoch in range(1, epoch_total):
               preds = model.predict(expanded_samples, verbose=0)[0]
               preds = np.asarray(preds).astype('float64')
 
-              next_array = sample_v2(preds, temperature)
+              next_array = sample(preds, temperature)
               
               midi_list = []
               midi_list.append(generated_midi)
@@ -449,20 +449,19 @@ for y_axis_num in range(y_axis):
           while (i < len(one_freq_interval)):
               how_many_repetitive = 0
               temp_i = i
-
               if (one_freq_interval_norm[i] == first_touch):
                   how_many_repetitive = how_many_repetitive_func(one_freq_interval_norm, from_where=i+1, continuation=continuation)
                   i += how_many_repetitive 
 
               if (how_many_repetitive > 0):
-                  random_num = np.random.randint(1,6)
+                  random_num = np.random.randint(3,6)
                   new_note = note.Note(int_to_note(y_axis_num),duration=duration.Duration(0.25*random_num*how_many_repetitive))
                   new_note.offset = 0.25*temp_i*2
                   new_note.storedInstrument = instrument.Piano()
                   output_notes.append(new_note)
               else:
                   i += 1
-          
+        
         else:
           
           while (i < len(one_freq_interval)):
@@ -483,7 +482,7 @@ for y_axis_num in range(y_axis):
     return output_notes
 ```
 
-Note: I have added some randomness to this conversion. If I do not use this randomness, length of notes will mostly become _0.25_ because of model. Thus, generated music can not be enjoyable without this randomness.
+Note: I have added some randomness to this conversion. If I do not use this randomness, length of notes will mostly become _0.25_ because of model. Thus, generated music can not be enjoyable without this randomness. 
 
 As you can see, there is some function in this code. Now, look these functions.
 
