@@ -1,4 +1,4 @@
-# My Music with Deep Learning Journey (Part 1) - Music Generation with LSTM 
+# My Journey to Music-Speech with Deep Learning (Part 1) - Music Generation with LSTM 
 
 
 
@@ -9,7 +9,7 @@ Neural networks are widely used in different areas such as cancer detection, aut
 
 Also, we can see great efforts in this area like [Google's Magenta](https://magenta.tensorflow.org) and [Aiva](http://www.aiva.ai) which is Luxembourg based startup for music generation. Especially, [Aiva's musics](https://www.youtube.com/watch?v=HAfLCTRuh7U) are amazing and their contents are registered under the France and Luxembourg authors’ right society (SACEM).
 
- With this impression, I want to start my own journey to this area. And this blog-post explains my first step to this journey. :school_satchel: :tada:
+ With this impression, I want to start my own journey to this area. And this blog-post explains my first step to this journey. 
 
 
 ## LSTM
@@ -25,7 +25,7 @@ Traditional neural networks can not remember past information. They can only pro
 
 Gradient is a fancy words for slope of line(_for 2D space_) a.k.a derivative. We use gradient to find minimum points of the function. I think this quote will give intuitive explanation: _The gradient will act like a compass and always point us downhill. To compute it, we will need to differentiate our error function._ We can say that, gradient descent is a way to minimize objective function. (Gradient descent is an optimization algorithm that minimizes functions.) This optimization technique is based on repetition. For the initialization, model guess some parameter and according to gradient (derivative) of objective function, model updates their parameter. As you expect, its usage for Deep Learning comes with the loss(cost) function. Most of the time, our aim is minimize the loss(cost) function for DL models. Gradient based methods learn a parameter's value (weights of node or biases) by understanding how a small change in this parameter's value will affect the outputs of the network. When vanishing gradient problem occurs, gradient of early layers of the model's parameters' become very small. Thus, DL model can not find the better value for parameter effectively to decrease loss function with find the minimum point of line thanks to gradient.
 
-- _You can check this excellent resource for mathematical and graphical explanation of gradient descent:_ http://fa.bianp.net/teaching/2018/eecs227at/gradient_descent.html
+_You can check this excellent [resource](http://fa.bianp.net/teaching/2018/eecs227at/gradient_descent.html) for mathematical and graphical explanation of gradient descent:_ 
 
 
 
@@ -261,8 +261,6 @@ midis_array.shape
 ```python
 max_len = 18 # how many column will take account to predict next column.
 step = 1 # step size.
-
-# ADD ILLUSTRATION ABOUT THIS PROCESS.
 
 previous_full = []
 predicted_full = []
@@ -548,4 +546,11 @@ def how_many_repetitive_func(array, from_where=0, continuation=0.0):
 
 ## Results
 
-Let's listen some outputs of the system. :notes:
+Let's listen some outputs of the system. 
+
+_I have used 55 different piano music for game for these outputs. I have trained my model 15 hours with [Google Colab](https://hackernoon.com/train-your-machine-learning-models-on-googles-gpus-for-free-forever-a41bd309d6ad)._
+
+<iframe width="100%" height="450" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/506986707&color=%23ff9900&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
+
+
+I want to say _thanks_ to [Oguzhan Ergin](https://github.com/OguzhanE) for his support.
